@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import NewsItem from './NewsItem';
+import axios from 'axios';
 
 const NewsListWrapper = styled.div`
   box-sizing: border-box;
@@ -14,22 +15,41 @@ const NewsListWrapper = styled.div`
   }
 `;
 
-const sampleArticle = {
-  title: '제목',
-  description: '내용',
-  url: 'https://google.com',
-  urlToImage: 'https://via.placeholder.com/160',
-};
-
 const NewsList = () => {
+  const [articles, setArticles] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // async를 사용하는 함수 따로 선언. useEffect에서 반환해야 하는 값은 뒷정리 함수임
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          'http://newsapi.org/v2/top-headlines?country=kr&apiKey=81e7f740025843d8b8f7993b10f14919'
+        );
+        setArticles(response.data.articles);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []); // 첫 렌더링에서만 api 호출
+
+  if (loading) {
+    return <NewsListWrapper>로딩 중...</NewsListWrapper>;
+  }
+
+  // 아직 기사들을 받지 못한 경우
+  if (!articles) {
+    return null;
+  }
+
   return (
     <NewsListWrapper>
-      <NewsItem article={sampleArticle} />
-      <NewsItem article={sampleArticle} />
-      <NewsItem article={sampleArticle} />
-      <NewsItem article={sampleArticle} />
-      <NewsItem article={sampleArticle} />
-      <NewsItem article={sampleArticle} />
+      {articles.map((article) => (
+        <NewsItem key={article.url} article={article} />
+      ))}
     </NewsListWrapper>
   );
 };

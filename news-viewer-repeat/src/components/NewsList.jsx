@@ -35,7 +35,7 @@ const NewsList = ({ category }) => {
       setLoading(false);
     };
     fetchData();
-  }, [category]); // 첫 렌더링에서만 api 호출
+  }, [category]); // 카테고리 변경 시 그에 맞는 api 호출
 
   if (loading) {
     return <NewsListWrapper>로딩 중...</NewsListWrapper>;

@@ -15,7 +15,7 @@ const NewsListWrapper = styled.div`
   }
 `;
 
-const NewsList = () => {
+const NewsList = ({ category }) => {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -24,8 +24,9 @@ const NewsList = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
+        const query = category === 'all' ? '' : `&category=${category}`;
         const response = await axios.get(
-          'http://newsapi.org/v2/top-headlines?country=kr&apiKey=81e7f740025843d8b8f7993b10f14919'
+          `http://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=81e7f740025843d8b8f7993b10f14919`
         );
         setArticles(response.data.articles);
       } catch (e) {
@@ -34,7 +35,7 @@ const NewsList = () => {
       setLoading(false);
     };
     fetchData();
-  }, []); // 첫 렌더링에서만 api 호출
+  }, [category]); // 첫 렌더링에서만 api 호출
 
   if (loading) {
     return <NewsListWrapper>로딩 중...</NewsListWrapper>;

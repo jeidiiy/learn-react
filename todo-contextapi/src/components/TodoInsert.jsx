@@ -6,9 +6,9 @@ const TodoInsert = () => {
   return (
     <form className="insert-form">
       <input type="text" placeholder="할 일을 입력하세요" />
-      <div className="btn-insert">
+      <button className="btn-insert" type="submit">
         <MdAdd />
-      </div>
+      </button>
     </form>
   );
 };

@@ -1,0 +1,29 @@
+.todo-item {
+  display: flex;
+  font-size: 1.25rem;
+}
+
+.check {
+  flex: 1;
+  padding: 0.5rem;
+  cursor: pointer;
+
+  .text {
+    margin-left: 0.5rem;
+  }
+
+  .checked {
+    color: lightslategray;
+    text-decoration: line-through;
+  }
+}
+
+.remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  .btn-remove {
+    cursor: pointer;
+  }
+}

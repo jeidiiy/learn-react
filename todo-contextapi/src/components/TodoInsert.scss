@@ -1,0 +1,30 @@
+.insert-form {
+  display: flex;
+}
+
+.insert-form > * {
+  border: none;
+}
+
+input {
+  outline: 0;
+  padding: 10px;
+  color: #fff;
+  background-color: #222;
+  flex: 1;
+  font-size: 1.125rem;
+}
+
+input::placeholder {
+  color: dimgrey;
+}
+
+.btn-insert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 1rem;
+  background-color: darkcyan;
+  color: #fff;
+  cursor: pointer;
+}

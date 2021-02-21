@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useContext, useCallback } from 'react';
 import {
   MdCheckBox,
   MdCheckBoxOutlineBlank,
   MdRemoveCircleOutline,
 } from 'react-icons/md';
 import './TodoListItem.scss';
-const TodoListItem = () => {
+import { store, toggle, remove } from '../contexts/todos';
+
+const TodoListItem = ({ id, text, checked }) => {
+  const globalContext = useContext(store);
+  const { dispatch } = globalContext;
+
+  const onToggle = useCallback(() => {
+    dispatch(toggle(id));
+  }, [dispatch, id]);
+
+  const onRemove = useCallback(() => {
+    dispatch(remove(id));
+  }, [dispatch, id]);
+
   return (
-    <div className="todo-item">
-      <div className="check">
-        <MdCheckBoxOutlineBlank />
-        <span className="text">리액트의 기초 알아보기</span>
+    <div className="todo-item" onClick={onToggle}>
+      <div className={checked ? 'check checked' : 'check'}>
+        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        <span className="text">{text}</span>
       </div>
       <div className="remove">
-        <MdRemoveCircleOutline className="btn-remove" />
+        <MdRemoveCircleOutline className="btn-remove" onClick={onRemove} />
       </div>
     </div>
   );
 };
 
-export default TodoListItem;
+export default React.memo(TodoListItem);

@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import TodosProvider from './contexts/todos';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <TodosProvider>
     <App />
-  </React.StrictMode>,
+  </TodosProvider>,
   document.getElementById('root')
 );
 
